@@ -24,7 +24,8 @@ def main():
         if current_time >= hot_claim_time:
             data = hot_status()
             result = claim(HotWallet.url, HotWallet.headers, data)
-            logger.info(result)
+            balance = result['hot_in_storage']
+            logger.info(f'HOT Wallet balance: {balance}')
             hot_claim_time = current_time + hot_periodicity * one_hour
 
         if current_time >= hamster_claim_time:
