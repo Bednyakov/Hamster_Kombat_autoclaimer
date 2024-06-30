@@ -3,7 +3,7 @@
 
 ### Установка:
 1. Скачайте репозиторий командой: git clone https://github.com/Bednyakov/autoclaimer.git
-2. Установите зависимости: pip install -r requiremenrs.txt
+2. Установите зависимости: pip install -r requirements.txt
 3. В каталоге проекта создайте файл .env и заполните его следующим образом:
 
 > HAMSTER_TOKEN=MY_TOKEN
