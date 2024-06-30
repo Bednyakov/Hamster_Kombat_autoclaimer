@@ -1,6 +1,7 @@
 import time
 from claim import logger
 from random import randint
+from daily_cipher import get_cipher
 from config import HotWallet, HamsterKombat
 from claim import claim, hot_status, hamster_tap
 
@@ -8,6 +9,7 @@ from claim import claim, hot_status, hamster_tap
 def main():
     """
     Функции клейма и тапа вызываются через заданные периоды.
+    Функция проверки и клейма секретного слова Hamster Kombat вызывается вместе с клеймом монет.
     """
     hot_claim_time = time.time()
     hamster_claim_time = time.time()
@@ -33,6 +35,7 @@ def main():
             balance = result['clickerUser']['balanceCoins']
             availableTaps = result['clickerUser']['availableTaps']
             logger.info(f"Hamster balance: {balance} Available Taps: {availableTaps}")
+            get_cipher()
             hamster_claim_time = current_time + hamster_periodicity * one_hour
 
         if current_time >= hamster_tap_time:
