@@ -9,7 +9,7 @@ def daily_cipher_decode(cipher):
     result = base64.b64decode(cipher).decode('utf-8')
     return result
 
-def get_cipher():
+def get_cipher() -> None:
     """
     Функция для отправки POST-запроса и получения серкетного слова дня.
     """
