@@ -51,6 +51,9 @@ class HotWallet:
         }
     }
 
+    referrals_id = []
+
+
 def hot_status():
     """
     Функция обновления данных в Hotwallet.
@@ -65,9 +68,11 @@ def hot_status():
         logger.info(f"Update Hot data. Status code: {response.status_code }")
         try:
             values = response.json()
-            data['game_state']['last_claim'] = values['last_offchain_claim']
-            data['game_state']['balance'] = values['hot_in_storage']
-            return data
+            HotWallet.data['game_state']['last_claim'] = values['last_offchain_claim']
+            HotWallet.data['game_state']['balance'] = values['hot_in_storage']
+            referrals = get_referrals()
+            HotWallet.data['game_state']["refferals"] = referrals["total_referals"]
+            return HotWallet.data
         
         except ValueError as e:
             logger.error(f"Ответ не в формате JSON: {e}")
@@ -75,6 +80,54 @@ def hot_status():
 
     logger.error(f"Ошибка при отправке POST-запроса на обновление Hot data: {response.status_code, response.text}")
     return None
+
+
+def get_referrals() -> dict:
+    """
+    Функция обновления числа и списка рефералов.
+    """
+    url = "https://api0.herewallet.app/api/v1/user/hot/referrals"
+
+    response = requests.get(url, headers=HotWallet.headers)
+
+    if response.status_code == 200:
+        try:
+            values = response.json()
+            total_referrals = values["total_referrals"]
+
+            referrals_id = []
+
+            for referral in values["referrals"]:
+                referrals_id.append(referral["near_account_id"])
+            HotWallet.referrals_id = referrals_id
+
+            logger.info(f"Total referrals in HOT: {total_referrals}")
+            return {"total_referals": total_referrals, "referals_id": referrals_id}
+        
+        except ValueError as e:
+            logger.error(f"Ответ не в формате JSON: {e}")
+            return None
+
+    logger.error(f"Ошибка при отправке GET-запроса на обновление рефералов: {response.status_code, response.text}")
+    return None
+
+
+def notification() -> None:
+    """
+    Функция уведомления рефералов.
+    """
+    url = "https://api0.herewallet.app/api/v1/user/hot/notification"
+
+    for id in HotWallet.referrals_id:
+
+        data = {"friend_account_id": id}
+        response = requests.post(url, headers=HotWallet.headers, json=data)
+
+        if response.status_code == 200:
+            logger.info(f"{id} notification.")
+    
+    return None
+
 
 def claim(url_res: str, headers_res: dict, data: dict = None) -> None:
     """
@@ -97,6 +150,7 @@ def claim(url_res: str, headers_res: dict, data: dict = None) -> None:
         logger.error(f"Ошибка при отправке POST-запроса на клейм: {response.status_code, response.text}")
         return None
 
+
 def main():
     """
     Функции клейма HOT.
@@ -114,6 +168,7 @@ def main():
             result = claim(HotWallet.url, HotWallet.headers, data)
             balance = result['hot_in_storage']
             logger.info(f'HOT Wallet balance: {balance}')
+            notification()
             hot_claim_time = current_time + hot_periodicity * one_hour
 
         time.sleep(600)
