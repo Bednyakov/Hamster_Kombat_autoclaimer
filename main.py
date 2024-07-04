@@ -1,7 +1,7 @@
 import time
 from random import randint
 from core.loggers import logger
-from config import HamsterKombat
+from core.config import HamsterKombat
 from core.daily_cipher import get_cipher
 from core.claim import claim, hamster_tap
 from core.daily_reward import claim_daily_reward

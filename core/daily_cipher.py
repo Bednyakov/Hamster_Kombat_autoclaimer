@@ -1,7 +1,7 @@
 import base64
 import requests
 from core.loggers import logger
-from config import HamsterKombat
+from core.config import HamsterKombat
 
 
 def daily_cipher_decode(cipher):

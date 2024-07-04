@@ -2,7 +2,7 @@ import requests
 from time import time
 from random import randint
 from core.loggers import logger
-from config import HamsterKombat
+from core.config import HamsterKombat
 
 
 logger = logger
