@@ -4,6 +4,7 @@ from random import randint
 from config import HamsterKombat
 from daily_cipher import get_cipher
 from claim import claim, hamster_tap
+from daily_reward import claim_daily_reward
 
 
 def main():
@@ -27,6 +28,7 @@ def main():
             availableTaps = result['clickerUser']['availableTaps']
             logger.info(f"Hamster balance: {balance} Available Taps: {availableTaps}")
             get_cipher()
+            claim_daily_reward()
             hamster_claim_time = current_time + hamster_periodicity * one_hour
 
         if current_time >= hamster_tap_time:

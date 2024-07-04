@@ -51,7 +51,7 @@ class HotWallet:
                 "firespace": 2,
                 "boost": 14,
                 "storage": 22,
-                "balance": 131760190
+                "balance": 0
             }
         }
 
