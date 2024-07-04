@@ -1,5 +1,5 @@
 import requests
-from claim import logger
+from core.loggers import logger
 from config import HamsterKombat
 
 def get_status_daily_reward() -> bool:

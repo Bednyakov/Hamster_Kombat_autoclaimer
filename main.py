@@ -1,10 +1,10 @@
 import time
-from claim import logger
 from random import randint
+from core.loggers import logger
 from config import HamsterKombat
-from daily_cipher import get_cipher
-from claim import claim, hamster_tap
-from daily_reward import claim_daily_reward
+from core.daily_cipher import get_cipher
+from core.claim import claim, hamster_tap
+from core.daily_reward import claim_daily_reward
 
 
 def main():

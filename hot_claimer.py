@@ -2,7 +2,6 @@ import os
 import time
 import logging
 import requests
-from claim import logger
 from random import randint
 from dotenv import load_dotenv
 
