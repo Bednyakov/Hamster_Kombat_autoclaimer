@@ -13,7 +13,7 @@ def get_cipher() -> None:
     """
     Функция для отправки POST-запроса и получения серкетного слова дня.
     """
-    url = "https://api.hamsterkombat.io/clicker/config"
+    url = "https://api.hamsterkombatgame.io/clicker/config"
 
     response = requests.post(url, headers=HamsterKombat.headers)
 
@@ -42,7 +42,7 @@ def claim_cipher(cipher: str) -> None:
     """
     Функция для отправки POST-запроса с секретным словом.
     """
-    url = "https://api.hamsterkombat.io/clicker/claim-daily-cipher"
+    url = "https://api.hamsterkombatgame.io/clicker/claim-daily-cipher"
 
     data = {
             "cipher": cipher,
