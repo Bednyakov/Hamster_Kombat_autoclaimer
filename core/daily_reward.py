@@ -3,7 +3,7 @@ from core.loggers import logger
 from core.config import HamsterKombat
 
 def get_status_daily_reward() -> bool:
-    url = "https://api.hamsterkombat.io/clicker/list-tasks"
+    url = "https://api.hamsterkombatgame.io/clicker/list-tasks"
 
     response = requests.post(url, headers=HamsterKombat.headers)
 
@@ -20,7 +20,7 @@ def get_status_daily_reward() -> bool:
 
 def claim_daily_reward() -> None:
     if get_status_daily_reward() is False:
-        url = "https://api.hamsterkombat.io/clicker/check-task"
+        url = "https://api.hamsterkombatgame.io/clicker/check-task"
         payload = {"taskId": "streak_days"}
 
         response = requests.post(url, headers=HamsterKombat.headers, json=payload)
