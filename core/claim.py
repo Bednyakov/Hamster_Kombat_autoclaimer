@@ -41,7 +41,7 @@ def hamster_tap():
     """
     Функция для отправки POST-запроса с количеством тапов в Hamster Kombat.
     """
-    url = "https://api.hamsterkombat.io/clicker/tap"
+    url = "https://api.hamsterkombatgame.io/clicker/tap"
 
     data = {
         "count": randint(501, 513),
